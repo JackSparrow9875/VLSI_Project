@@ -1,0 +1,54 @@
+$date
+	Tue Oct 24 00:27:06 2023
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module tb_ALU_Block_as_2to4Decoder $end
+$var wire 4 ! y [3:0] $end
+$var reg 1 " S0 $end
+$var reg 1 # S1 $end
+$var reg 1 $ enable $end
+$scope module uut $end
+$var wire 1 " S0 $end
+$var wire 1 # S1 $end
+$var wire 1 $ enable $end
+$var reg 4 % y [3:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+b0 %
+0$
+0#
+0"
+b0 !
+$end
+#100000
+b1 !
+b1 %
+1$
+#110000
+b10 !
+b10 %
+1#
+#120000
+b100 !
+b100 %
+0#
+1"
+#130000
+b1000 !
+b1000 %
+1#
+#140000
+b0 !
+b0 %
+0$
+0#
+0"
+#150000
