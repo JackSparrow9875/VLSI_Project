@@ -1,0 +1,65 @@
+$date
+	Wed Oct 25 03:29:40 2023
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module testbench $end
+$scope module AND_inst $end
+$var wire 4 ! a [3:0] $end
+$var wire 4 " b [3:0] $end
+$var wire 4 # result [3:0] $end
+$var wire 4 $ results [3:0] $end
+$scope module and0 $end
+$var wire 1 % a $end
+$var wire 1 & b $end
+$var wire 1 ' x $end
+$upscope $end
+$scope module and1 $end
+$var wire 1 ( a $end
+$var wire 1 ) b $end
+$var wire 1 * x $end
+$upscope $end
+$scope module and2 $end
+$var wire 1 + a $end
+$var wire 1 , b $end
+$var wire 1 - x $end
+$upscope $end
+$scope module and3 $end
+$var wire 1 . a $end
+$var wire 1 / b $end
+$var wire 1 0 x $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope module testbench $end
+$var reg 1 1 clk $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+01
+10
+1/
+1.
+0-
+0,
+1+
+0*
+1)
+0(
+0'
+0&
+1%
+b1000 $
+b1000 #
+b1010 "
+b1101 !
+$end
+#5000
+11
+#10000
+01
