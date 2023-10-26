@@ -1,49 +1,69 @@
-module comparator_4bit(G, E, L, a, b);
-    //defining the inputs and outputs
-    output G, E, L;
-    input [3:0] a, b;
+module comparator_four_bit(
+    input [3:0] A,
+    input [3:0] B,
+    output reg Greater_than,
+    output reg Less_than,
+    output reg Equal);
 
-    //defining the necessary wires so that they store the necessary intermediate values
-    wire gt_eq_lt_1, gt_eq_lt_2, gt_eq_lt_3, gt_eq_lt_4;    //each one is for the four bits of a and b
-    wire G_1, G_2, G_3;
-    wire E_1, E_2;
-    wire L_1, L_2, L_3, L_4;
+    wire [3:0] G_bits;
+    wire [3:0] L_bits;
+    wire [3:0] E_bits;
 
-    //comparing the most significant digits of a and b
-    wire msb_a, msb_b;
-    assign msb_a = a[3];
-    assign msb_b = b[3];
+    // Comparing each bit
+    comparator_one_bit c3(A[3], B[3], G_bits[3], L_bits[3], E_bits[3]);
+    comparator_one_bit c2(A[2], B[2], G_bits[2], L_bits[2], E_bits[2]);
+    comparator_one_bit c1(A[1], B[1], G_bits[1], L_bits[1], E_bits[1]);
+    comparator_one_bit c0(A[0], B[0], G_bits[0], L_bits[0], E_bits[0]);
 
-    xor x1(gt_eq_lt_1, msb_a, msb_b);
-    and a1(G_1, msb_a, gt_eq_lt_1);
-    and a2(G_2, gt_eq_lt_1, msb_b);
-
-    // Stage 2 - Compare the Next Significant Bits
-    wire nsb_a, nsb_b;
-    assign nsb_a = a[2];
-    assign nsb_b = b[2];
-
-    xor x2(gt_eq_lt_2, nsb_a, nsb_b);
-    and a3(G_3, nsb_a, gt_eq_lt_2);
-    and a4(G_4, gt_eq_lt_2, nsb_b);
-
-    // Stage 3 - Compare the Remaining Bits
-    wire[1:0] rsb_a, rsb_b;
-    assign rsb_a = a[1:0];
-    assign rsb_b = b[1:0];
-
-    xor x3(gt_eq_lt_3, rsb_a, rsb_b);
-    and a5(E_1, G_1, gt_eq_lt_3);
-    and a6(E_2, gt_eq_lt_3, L_1);
-
-    // Generate 'Less Than' Signals for Stages 2 and 3
-    xor x4(L_1, G_1, gt_eq_lt_2);
-    xor x5(L_2, L_1, gt_eq_lt_3);
-    xor x6(L_3, G_2, gt_eq_lt_3);
-    xor x7(L_4, G_3, gt_eq_lt_3);
-
-    // Combine Results
-    or o1(G, G_1, G_2, G_3);
-    or o2(E, E_1, E_2);
-    or o3(L, L_1, L_2, L_3, L_4);
+    always @* begin
+        if (E_bits[3] != 1) begin
+            Greater_than = G_bits[3];
+            Less_than = L_bits[3];
+            Equal = E_bits[3];
+        end else if (E_bits[2] != 1) begin
+            Greater_than = G_bits[2];
+            Less_than = L_bits[2];
+            Equal = E_bits[2];
+        end else if (E_bits[1] != 1) begin
+            Greater_than = G_bits[1];
+            Less_than = L_bits[1];
+            Equal = E_bits[1];
+        end else if (E_bits[0] != 1) begin
+            Greater_than = G_bits[0];
+            Less_than = L_bits[0];
+            Equal = E_bits[0];
+        end
+    end
 endmodule
+
+
+
+module comparator_one_bit(
+    input A,
+    input B,
+    output G,
+    output L,
+    output E);
+
+    wire nA, nB, and1_out, and2_out, or1_out;
+
+    //inverters
+    not (nA, A);
+    not (nB, B);
+
+    //AND gates
+    and (and1_out, A, nB);
+    and (and2_out, nA, B);
+
+    //OR gate
+    or (or1_out, and1_out, and2_out);
+
+    // Final outputs
+    assign G = and1_out;
+    assign L = and2_out;
+    assign E = ~or1_out;
+
+endmodule
+
+
+

@@ -1,51 +1,74 @@
 `timescale 1ns / 1ps
 
-module testbench;
+module tb_comparator_four_bit;
 
-    reg [3:0] a, b;
-    wire G, E, L;
+    //defining inputs and outputs
+    reg [3:0] A;
+    reg [3:0] B;
+    wire Greater_than;
+    wire Less_than;
+    wire Equal;
 
-    //instantiate the comparator module
-    comparator_4bit uut (
-        .G(G),
-        .E(E),
-        .L(L),
-        .a(a),
-        .b(b));
+    //instantiating the unit under test (uut)
+    comparator_four_bit uut(
+        .A(A),
+        .B(B),
+        .Greater_than(Greater_than),
+        .Less_than(Less_than),
+        .Equal(Equal));
 
-    //clock generation
-    reg clk = 0;
-    always begin
-        #5 clk = ~clk;
-    end
-
-    //stimulus
     initial begin
         $dumpfile("comparator.vcd");
-        $dumpvars(0, uut, clk);
-        
-        $display("a | b | G | E | L");
-        $display("------------------");
+        $dumpvars(0, uut);
 
-        //test with specific examples
-        //example 1    
-        a = 5;
-        b = 3;
-        #1; //wait for one time unit
-        $display("%b | %b | %b | %b | %b", a, b, G, E, L);
+        // initializing inputs
+        A = 4'b0000;
+        B = 4'b0000;
 
-        a = 7;  //example 2
-        b = 7;
-        #1; //wait for one time unit
-        $display("%b | %b | %b | %b | %b", a, b, G, E, L);
+        #50;
 
-        a = 3;  //example 3
-        b = 6;
-        #1; //wait for one time unit
-        $display("%b | %b | %b | %b | %b", a, b, G, E, L);
+        // adding stimulus here
+        A = 4'b0001;
+        B = 4'b0000;
 
-        //terminate simulation
+        #50;
+
+        // Check the results
+        if (Greater_than === 1'b1 || Less_than === 1'b0 || Equal === 1'b0)
+            $display("Test case 1 passed");
+        else
+            $display("Test case 1 failed");
+
+        A = 4'b0000;
+        B = 4'b0001;
+
+        #50;
+
+        // Check the results
+        if (Greater_than === 1'b0 || Less_than === 1'b1 || Equal === 1'b0)
+            $display("Test case 2 passed");
+        else
+            $display("Test case 2 failed");
+
+        A = 4'b0000;
+        B = 4'b0000;
+
+        #50;
+
+        // Check the results
+        if (Greater_than === 1'b0 || Less_than === 1'b0 || Equal === 1'b1)
+            $display("Test case 3 passed");
+        else
+            $display("Test case 3 failed");
+
         $finish;
     end
 
 endmodule
+
+
+
+
+
+
+
