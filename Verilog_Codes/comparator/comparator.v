@@ -9,7 +9,7 @@ module comparator_four_bit(
     wire [3:0] L_bits;
     wire [3:0] E_bits;
 
-    // Comparing each bit
+    //comparing each bit
     comparator_one_bit c3(A[3], B[3], G_bits[3], L_bits[3], E_bits[3]);
     comparator_one_bit c2(A[2], B[2], G_bits[2], L_bits[2], E_bits[2]);
     comparator_one_bit c1(A[1], B[1], G_bits[1], L_bits[1], E_bits[1]);
@@ -32,6 +32,10 @@ module comparator_four_bit(
             Greater_than = G_bits[0];
             Less_than = L_bits[0];
             Equal = E_bits[0];
+        end else begin
+            Greater_than = 1'b0;
+            Less_than = 1'b0;               //this makes sure that the equality condition is
+            Equal = 1'b1;                   //also satisfied
         end
     end
 endmodule
@@ -52,16 +56,17 @@ module comparator_one_bit(
     not (nB, B);
 
     //AND gates
-    and (and1_out, A, nB);
-    and (and2_out, nA, B);
+    and (and1_out, A, nB);                 //means A greater than B and only then equals 1
+    and (and2_out, nA, B);                 //means A less than B and only then equals 1
 
     //OR gate
-    or (or1_out, and1_out, and2_out);
+    or (or1_out, and1_out, and2_out);      //means there is an inequality existing, either A greater
+                                           //than or less than B
 
-    // Final outputs
+    //final outputs
     assign G = and1_out;
     assign L = and2_out;
-    assign E = ~or1_out;
+    assign E = ~or1_out;                   //means there is no inequality existing
 
 endmodule
 

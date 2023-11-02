@@ -21,42 +21,42 @@ module tb_comparator_four_bit;
         $dumpfile("comparator.vcd");
         $dumpvars(0, uut);
 
-        // initializing inputs
+        //initializing inputs
         A = 4'b0000;
         B = 4'b0000;
 
         #50;
 
-        // adding stimulus here
+        //adding stimulus here
         A = 4'b0001;
         B = 4'b0000;
 
         #50;
 
-        // Check the results
-        if (Greater_than === 1'b1 || Less_than === 1'b0 || Equal === 1'b0)
+        //verifying the results
+        if (Greater_than === 1'b1 && Less_than === 1'b0 && Equal === 1'b0)
             $display("Test case 1 passed");
         else
             $display("Test case 1 failed");
 
+        //second stimulus
         A = 4'b0000;
         B = 4'b0001;
 
         #50;
 
-        // Check the results
-        if (Greater_than === 1'b0 || Less_than === 1'b1 || Equal === 1'b0)
+        if (Greater_than === 1'b0 && Less_than === 1'b1 && Equal === 1'b0)
             $display("Test case 2 passed");
         else
             $display("Test case 2 failed");
 
+        //third stimulus
         A = 4'b0000;
         B = 4'b0000;
 
         #50;
 
-        // Check the results
-        if (Greater_than === 1'b0 || Less_than === 1'b0 || Equal === 1'b1)
+        if (Greater_than === 1'b0 && Less_than === 1'b0 && Equal === 1'b1)
             $display("Test case 3 passed");
         else
             $display("Test case 3 failed");
