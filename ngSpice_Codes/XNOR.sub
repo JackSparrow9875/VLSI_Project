@@ -1,0 +1,4 @@
+.subckt XNOR a b out vdd gnd 
+    X1 a b c vdd gnd XOR
+    X2 c out vdd gnd NOT 
+.ends  XNOR

@@ -1,0 +1,7 @@
+.subckt OR a b out vdd gnd.
+
+    X1 a a c vdd gnd NAND
+    X2 b b d vdd gnd NAND
+    X3 c d out vdd gnd NAND
+
+.ends OR

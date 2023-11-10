@@ -1,0 +1,11 @@
+.subckt full_adder a b c_in sum carry vdd gnd 
+    X1 a b w1 vdd gnd XOR
+    X2 w1 c_in sum vdd gnd XOR
+
+    X3 a b c1 vdd gnd AND
+    X4 b c_in c2 vdd gnd AND
+    X5 a c_in c3 vdd gnd AND
+
+    X6 c1 c2 c4 vdd gnd OR
+    X7 c3 c4 carry vdd gnd OR
+.ends full_adder

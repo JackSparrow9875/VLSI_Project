@@ -1,0 +1,11 @@
+.subckt four_bit_adder a0 a1 a2 a3 b0 b1 b2 b3 m sum0 sum1 sum2 sum3 carry vdd gnd
+    X1 b0 m B0 vdd gnd XOR
+    X2 b1 m B1 vdd gnd XOR
+    X3 b2 m B2 vdd gnd XOR
+    X4 b3 m B3 vdd gnd XOR
+
+    X5 a0 B0 m sum0 c0 vdd gnd full_adder
+    X6 a1 B1 c0 sum1 c1 vdd gnd full_adder
+    X7 a2 B2 c1 sum2 c2 vdd gnd full_adder
+    X8 a3 B3 c2 sum3 carry vdd gnd full_adder
+.ends four_bit_adder

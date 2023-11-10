@@ -1,0 +1,88 @@
+.subckt fourbit_comparator a0 a1 a2 a3  b0 b1 b2 b3 greater equal lesser vdd gnd 
+
+*not of each bit of a
+X1 a0  a0_bar vdd gnd NOT
+X2 a1  a1_bar vdd gnd NOT
+X3 a2  a2_bar vdd gnd NOT
+X4 a3  a3_bar vdd gnd NOT
+
+*not of each bit of b
+X5 b0  b0_bar vdd gnd NOT
+X6 b1  b1_bar vdd gnd NOT
+X7 b2  b2_bar vdd gnd NOT
+X8 b3  b3_bar vdd gnd NOT
+
+*greater than 
+
+X9 a3 b3_bar node_w1 vdd gnd AND
+
+X10 a3 b3 node_w2 vdd gnd XNOR
+X11 a2 b2_bar node_w3 vdd gnd AND
+X12 node_w2 node_w3 node_w4 vdd gnd AND
+
+
+
+X13 a3 b3 node_w5 vdd gnd XNOR
+X14 a2 b2 node_w6 vdd gnd XNOR
+X15 a1 b1_bar node_w7 vdd gnd AND
+*3bit and
+X16 node_w5 node_w6 node_w56 vdd gnd AND
+X17 node_w56 node_w7 node_w8 vdd gnd AND
+
+X18 a3 b3 node_w9 vdd gnd XNOR
+X19 a2 b2 node_w10 vdd gnd XNOR
+X20 a1 b1 node_w11 vdd gnd XNOR
+X21 a0 b0_bar node_w12 vdd gnd AND
+*4bit and 
+X22 node_w9 node_w10 node_and2 vdd gnd AND
+X23 node_w11 node_w12 node_1112 vdd gnd AND
+X24 node_and2 node_1112 node_w13 vdd gnd AND
+
+*3bit or 
+X25 node_w13 node_w8 node_8or13 vdd gnd OR 
+X26 node_w4 node_w1 node_4or1 vdd gnd OR
+X27 node_8or13 node_4or1  greater vdd gnd OR
+
+*equal to 
+X28 a3 b3 node_w14 vdd gnd XNOR
+X29 a2 b2 node_w15 vdd gnd XNOR
+X30 a1 b1 node_w16 vdd gnd XNOR
+X31 a0 b0 node_w17 vdd gnd XNOR
+*4bit and 
+X32 node_w14 node_w15 node_1415 vdd gnd AND
+X33 node_w16 node_w17 node_1617 vdd gnd AND
+X34 node_1415 node_1617 equal vdd gnd AND
+
+
+
+*less than 
+X35 a3_bar b3 node_w18 vdd gnd AND
+
+X36 a3 b3 node_w19 vdd gnd XNOR
+X37 a2_bar b2 node_w20 vdd gnd AND
+X38 node_w19 node_w20 node_w21 vdd gnd AND
+
+
+X39 a3 b3 node_w22 vdd gnd XNOR
+X40 a2 b2 node_w23 vdd gnd XNOR
+X41 a1_bar b1 node_w24 vdd gnd AND
+*3bit and
+X42 node_w22 node_w23 node_w2223 vdd gnd AND
+X43 node_w2223 node_w24 node_w25 vdd gnd AND
+
+X44 a3 b3 node_w26 vdd gnd XNOR
+X45 a2 b2 node_w27 vdd gnd XNOR
+X46 a1 b1 node_w28 vdd gnd XNOR
+X47 a0_bar b0 node_w29 vdd gnd AND
+*4bit and 
+X48 node_w26 node_w27 node_2627 vdd gnd AND
+X49 node_w28 node_w29 node_2829 vdd gnd AND
+X50 node_2627 node_2829 node_w30 vdd gnd AND
+
+*3bit or 
+X51 node_w18 node_w21 node_18or21 vdd gnd OR 
+X52 node_w25 node_w30 node_25or30 vdd gnd OR
+X53 node_18or21 node_25or30 lesser vdd gnd OR
+
+
+.ends fourbit_comparator

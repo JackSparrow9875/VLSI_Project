@@ -1,0 +1,5 @@
+.subckt NOT a out vdd gnd
+
+	X1 a a out vdd gnd NAND
+
+.ends NOT
