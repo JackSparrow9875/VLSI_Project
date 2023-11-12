@@ -5,7 +5,7 @@
 module alu_block(
     input [3:0] A,
     input [3:0] B,
-    input [1:0] S,           //control 2-bit number S
+    input [1:0] S,              //control 2-bit number S
     output reg [3:0] result);
 
     wire not_S0, not_S1;
